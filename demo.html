@@ -1,0 +1,41 @@
+x<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Slide-Show Demo</title>
+  <link rel="stylesheet" href="simple-slide-show/simple-slide-show.css">
+</head>
+
+<body>
+  <div class="simple-slide-show loading">
+    <ul>
+      <li class="on">
+        <figure style="background-color: #ccc;">
+          <h1>First Slide</h1>
+        </figure>
+      </li>
+      <li>
+        <figure style="background-color: #999;">
+          <h1>Second Slide</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam felis quam, sodales eget efficitur quis, imperdiet vel massa. Proin malesuada mattis est sit amet rhoncus. Sed molestie, velit id iaculis ultricies, risus dui rhoncus nunc, a posuere libero velit tempor diam. Morbi lectus justo, rhoncus nec pulvinar in, pellentesque nec risus. Phasellus at arcu congue, eleifend leo sed, lacinia nisl. Phasellus eget tellus vel lectus tincidunt tempor. Nam ac odio at ligula luctus finibus. Curabitur leo turpis, sodales non efficitur a, auctor vel enim. Donec eu lacus tempus, blandit velit ut, porttitor justo. Morbi consectetur leo eu aliquet faucibus. Aliquam suscipit malesuada tellus, sit amet feugiat nisl.</p>
+        </figure>
+      </li>
+      <li>
+        <figure style="background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo0MThDODhFRjg4NEMxMUU2QjkzM0IzQjA3OEJCNjM1NSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo0MThDODhGMDg4NEMxMUU2QjkzM0IzQjA3OEJCNjM1NSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjQxOEM4OEVEODg0QzExRTZCOTMzQjNCMDc4QkI2MzU1IiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjQxOEM4OEVFODg0QzExRTZCOTMzQjNCMDc4QkI2MzU1Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+J3PkXgAAAKhJREFUeNrs21ENACAIQEF09qIa1WhmBT9xu5eA3eCTVVUxr8wcONUOwYIFCxYsWIIFCxYsWLAECxYsWLBgCRYsWLBgwRIsWLBgwYIlWLBgwYIFS7BgwYIFC5ZgwYIFCxYsPXdm/ox2t81yhrAECxYsWLBgCRYsWLBgwRIsWLBgwYIlWLBgwYIFS7BgwYIFC5ZgwYIFCxYswYIFCxYsWIIFCxasv7sCDACzHgYHHcX0rAAAAABJRU5ErkJggg=='); background-size: 100px 100px;"></figure>
+      </li>
+    </ul>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="simple-slide-show/simple-slide-show.js"></script>
+  <script>
+    $( '.simple-slide-show' ).simpleSlideShow({
+      autoplay: 3000,
+      effect: 'fade',
+      autosize: true
+    });
+  </script>
+</body>
+
+</html>
