@@ -1,6 +1,7 @@
 # simple-slide-show
 Basic jQuery plugin
 
+## Basic Usage
 ```
 <div class="simple-slide-show loading" data-speed="5000">
   <ul class="slides">
