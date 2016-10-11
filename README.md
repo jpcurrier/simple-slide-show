@@ -1,6 +1,5 @@
 # simple-slide-show
 Basic jQuery plugin
-<<<<<<< HEAD
 
 ## Basic Usage
 ```
@@ -19,5 +18,3 @@ Basic jQuery plugin
   </ul>
 </div>
 ```
-=======
->>>>>>> d89113cc9ebc2938c10be229ada550a2f2c4803f
