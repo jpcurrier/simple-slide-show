@@ -13,7 +13,7 @@ function slideHeights(){
 		var padding = parseInt( $( this ).css( 'padding-top' ), 10 ) + parseInt( $( this ).css( 'padding-bottom' ), 10 );
 
 		var tallest = 0;
-		$( this ).find( '.slides > li > figure > div > div > div' ).each( function(){
+		$( this ).find( '.simple-slide-show > ul > li > figure > div > div > div' ).each( function(){
 			var h = $( this ).outerHeight( true );
 			if( h > tallest )
 				tallest = h;
@@ -24,7 +24,7 @@ function slideHeights(){
 slideHeights();
 
 ( function( $ ){
-	$.fn.slideShow = function( options ){
+	$.fn.simple-slide-show > ulhow = function( options ){
 
 		// default options
 		var settings = $.extend({
@@ -37,8 +37,8 @@ slideHeights();
 
 		return this.each( function(){
 			var container = $( this );
-			var slide = container.find( '.slides > li' );
-			var slideCount = container.find( '.slides > li' ).length;
+			var slide = container.find( '.simple-slide-show > ul > li' );
+			var slideCount = container.find( '.simple-slide-show > ul > li' ).length;
 			if( slide.css( 'transition-duration' ) ){
 				var slideTransition =
 					( slide.css( 'transition-duration' ).indexOf( 'ms' ) > -1 ) ?
@@ -69,7 +69,7 @@ slideHeights();
 			container.addClass( 'slide-show loading' );
 			if( settings.effect == 'fade' )
 				container.addClass( 'fade' );
-			container.find( '.slides > li:first-child' ).addClass( 'on' );
+			container.find( '.simple-slide-show > ul > li:first-child' ).addClass( 'on' );
 			container.append( '<div class="slide-controls">' + directions + '</div>' + index );
 
 			function slideForward( current ){
@@ -119,7 +119,7 @@ slideHeights();
 					.addClass( 'to-' + direction );
 			}
 			function fade( fadeIn, fadeOut ){
-				container.find( '.slides > .off' ).removeClass( 'off' );
+				container.find( '.simple-slide-show > ul > .off' ).removeClass( 'off' );
 				slide.eq( fadeOut ).attr( 'class', 'off' );
 				slide.eq( fadeIn ).addClass( 'on' );
 				setTimeout( function(){
@@ -138,7 +138,7 @@ slideHeights();
 				if( !animating ){
 					animating = true;
 
-					var current = container.find( '.slides > li.on' ).index();
+					var current = container.find( '.simple-slide-show > ul > li.on' ).index();
 
 					if( $( this ).hasClass( 'prev' ) ){
 						if( current > 0 ) slideBack( current );
@@ -163,7 +163,7 @@ slideHeights();
 					animating = true;
 
 					var toSlide = $( this ).index();
-					var current = container.find( '.slides > li.on' ).index();
+					var current = container.find( '.simple-slide-show > ul > li.on' ).index();
 
 					if( !$( this ).hasClass( 'on' ) ){
 						if( toSlide > current ){
@@ -201,7 +201,7 @@ slideHeights();
 
 					if( !animating ){
 						animating = true;
-						var current = container.find( '.slides > li.on' ).index();
+						var current = container.find( '.simple-slide-show > ul > li.on' ).index();
 
 						if( e.type == 'panright' ){
 							if( current > 0 ) slideBack( current );
@@ -221,7 +221,7 @@ slideHeights();
 
 			// autoplay
 			function autoPlayFn(){
-				var current = container.find( '.slides > li.on' ).index();
+				var current = container.find( '.simple-slide-show > ul > li.on' ).index();
 
 				if( current < slideCount - 1 ) slideForward( current );
 				else slideRestart( current );
@@ -247,20 +247,3 @@ slideHeights();
 		});
 	};
 } )( jQuery );
-
-$( '.slides' ).each( function(){
-	if( $( this ).children( 'li' ).length > 1 ){
-		var slideSpeed = Number( $( this ).parent().attr( 'data-speed' ) );
-		var play = ( slideSpeed == '0' ) ?
-			false :
-				true;
-
-		$( this ).parent().slideShow({
-			speed: slideSpeed,
-			controls: true,
-			index: true,
-			autoplay: play,
-			effect: 'fade'
-		});
-	}
-} );
