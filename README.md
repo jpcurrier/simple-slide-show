@@ -5,7 +5,7 @@ A simple responsive slide-show. Requires jQuery (1.11+).
 
 Include jQuery (1.11+) and the Simple Slide-show plugin files.
 
-```
+```html
 <!-- Simple Slide-Show Stylesheet -->
 <link rel="stylesheet" href="simple-slide-show/simple-slide-show.css">
 
@@ -13,11 +13,11 @@ Include jQuery (1.11+) and the Simple Slide-show plugin files.
 <script src="simple-slide-show/simple-slide-show.js"></script>
 ```
 
-Slides are list items wrapped in a container element with the class `simple-slide-show`. Each list item contains a `figure` element that wraps slide content. This `figure` element can take a `background` for full-slide images.
+Slides are list items wrapped in a container element (classed `simple-slide-show` in the following example). Each list item contains a `figure` element that wraps slide content. This `figure` element can take a `background` style for full-slide images.
 
-The `loading` class applied to the container and the `on` class applied to the first slide will be added by the jQuery plugin if they are omitted in the HTML, but loading is smoother if they are included.
+The `loading` class applied to the container and the `on` class applied to the first slide will be added by the jQuery plugin if they are omitted in the HTML, but loading is smoother if they are included in the layout code.
 
-```
+```html
 <div class="simple-slide-show loading">
   <ul>
     <li class="on">
@@ -39,15 +39,16 @@ The `loading` class applied to the container and the `on` class applied to the f
 </div>
 ```
 
-Call the plugin with jQuery. Settings between brackets are optional. More information in the following section.
+Call the plugin with jQuery. Settings between brackets are optional.
 
-```
+```javascript
 $( '.simple-slide-show' ).simpleSlideShow({
   speed: 5000,
   controls: true,
   index: true,
   autoplay: true,
-  effect: 'fade'
+  effect: 'fade',
+  autosize: false
 });
 ```
 
@@ -60,5 +61,36 @@ controls | boolean | true | Show directional controls (left and right buttons)
 index | boolean | true | Show navigation index controls (persistent sequential buttons)
 autoplay* | boolean | true | Slide automatically at speed setting
 effect | string | 'slide' | Transition effect: `'slide'` or `'fade'`
+autosize | boolean | true | Size slide-show to height of tallest slide content
 
 \*condense with speed eventually
+
+## Additional Functionality
+
+Integrates well with [Hammer.js](https://github.com/hammerjs/hammer.js) for touch functionality. If Hammer.js is loaded, touch functionality can be enabled by inserting the following code before the `autoPlayFn()` definition inside the `simple-slide-show.js` script.
+
+```javascript
+// touch events
+var touch = new Hammer( $( container )[ 0 ] );
+touch.on( 'panright panleft', function( e ){
+  clearInterval( autoPlay );
+
+  if( !animating ){
+    animating = true;
+    var current = container.find( '.simple-slide-show > ul > li.on' ).index();
+
+    if( e.type == 'panright' ){
+      if( current > 0 ) slideBack( current );
+      else slideLast( current );
+    }
+    if( e.type == 'panleft' ){
+      if( current < slideCount - 1 ) slideForward( current );
+      else slideRestart( current );
+    }
+
+    setTimeout( function(){
+      animating = false;
+    }, slideTransition );
+  }
+} );
+```

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Slide-Show Demo</title>
+  <link rel="stylesheet" href="simple-slide-show/simple-slide-show.css">
+</head>
+
+<body>
+  <div class="simple-slide-show loading">
+    <ul>
+      <li class="on">
+        <figure style="background-color: #ccc;">
+          <p>First Slide</p>
+        </figure>
+      </li>
+      <li>
+        <figure style="background-color: #e5e5e5;">
+          <p>Second Slide</p>
+        </figure>
+      </li>
+      <li>
+        <figure style="background-color: #b3b3b3;">
+          <p>Third Slide</p>
+        </figure>
+      </li>
+    </ul>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="simple-slide-show/simple-slide-show.js"></script>
+  <script>
+    $( '.simple-slide-show' ).simpleSlideShow({
+      speed: 5000,
+      controls: true,
+      index: true,
+      autoplay: true,
+      effect: 'fade'
+    });
+  </script>
+</body>
+
+</html>

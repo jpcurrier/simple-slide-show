@@ -29,6 +29,8 @@ div.product .slide-control:after{
 }
 .simple-slide-show > ul{
 	list-style: none;
+	padding: 0;
+	margin: 0;
 	overflow: hidden;
 }
 .simple-slide-show .simple-slide-show > ul > li{
@@ -47,6 +49,7 @@ div.product .slide-control:after{
 	z-index: 2;
 }
 .simple-slide-show > ul figure{
+	margin: 0;
 	background-position: center;
 	background-size: cover;
 }
@@ -127,8 +130,8 @@ div.product .slide-control:after{
 	border-bottom-left-radius: 66px;
 	margin: auto;
 	-ms-transform-origin: 50% 0%;
-    -webkit-transform-origin: 50% 0%;
-    transform-origin: 50% 0%;
+  -webkit-transform-origin: 50% 0%;
+  transform-origin: 50% 0%;
 	-webkit-animation: spinShifted 1s linear infinite;
 	animation: spinShifted 1s linear infinite;
 }
@@ -178,14 +181,17 @@ div.product .slide-control:after{
 	100%{ transform: translateY( 50% ) rotate( 360deg ); }
 }
 /* oversimplified effect kill on Android */
-.android .from-left figure,
-.android .from-right figure,
-.android .to-left figure,
-.android .to-right figure{
+.ua-android .from-left figure,
+.ua-android .from-right figure,
+.ua-android .to-left figure,
+.ua-android .to-right figure{
 	-webkit-animation: none;
 	animation: none;
 }
 /* simple slide-show: customizations */
+.simple-slide-show{
+	height: 200px;
+}
 .simple-slide-show figure:before{
 	background: #94908f;
 }
@@ -301,6 +307,7 @@ header.page .slide-control{
 .simple-slide-show.loading figure:after{
 	display: block;
 }
+
 
 @media screen and ( min-width: 992px ){
 
