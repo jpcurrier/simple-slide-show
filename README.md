@@ -1,7 +1,7 @@
-# Simple Slide-Show 1.0.0
-A simple responsive slide-show. Requires jQuery (1.7+).
+# Simple Slide-Show
+A simple responsive slide-show. Requires jQuery 1.7+.
 
-Tested support for: Chrome, Firefox, Safari, IE8+. Older browsers that do not support CSS3 drop transition effects but retain basic slider functionality.
+Support: Chrome, Firefox, Safari, IE8+. Older browsers that do not support CSS3 drop transition effects but retain basic slider functionality.
 
 ## Setup
 
@@ -41,9 +41,13 @@ The `loading` class applied to the container and the `on` class applied to the f
 </div>
 ```
 
-Call the plugin with jQuery. Settings between brackets are optional.
+Call the plugin with jQuery.
 
 ```javascript
+// simple
+$( '.simple-slide-show' ).simpleSlideShow();
+
+// custom settings
 $( '.simple-slide-show' ).simpleSlideShow({
   autoplay: 5000,
   controls: true,
@@ -57,15 +61,15 @@ $( '.simple-slide-show' ).simpleSlideShow({
 
 Setting | Type | Default | Description
 --- | --- | --- | ---
-autoplay | integer or boolean | 5000 | The amount of time in milliseconds between slides. If set to `false` or `0`, the slide-show will not autoplay.
-controls | boolean | true | Show directional controls (left and right buttons)
-index | boolean | true | Show navigation index controls (persistent sequential buttons)
-effect | string | 'slide' | Transition effect: `'slide'` or `'fade'`
-autosize | boolean | true | Size slide-show to height of tallest slide content
+autoplay | integer or boolean | 5000 | The amount of time in milliseconds between slides. If set to `false` or `0`, the slide-show will not advance automatically.
+controls | boolean | true | Show sequential navigation controls (left and right buttons).
+index | boolean | true | Show indexed navigation controls (slide jump buttons).
+effect | string | 'slide' | Transition effect: `'slide'` or `'fade'`.
+autosize | boolean | true | Size slide-show to height of tallest slide content. Set `false` if using CSS to set height of slide-show.
 
 ## Additional Functionality
 
-This plugin can integrate with [Hammer.js](https://github.com/hammerjs/hammer.js) for touch functionality. If Hammer.js is loaded, touch functionality can be enabled by inserting the following code into the `simple-slide-show.js` plugin definition inside: `return this.each( function(){ ... } );`
+This plugin integrates with [Hammer.js](https://github.com/hammerjs/hammer.js) for touch functionality. If Hammer.js is loaded, touch functionality can be enabled by inserting the following code into the `return this.each( function(){ ... } );` function inside the `simple-slide-show.js` script.
 
 ```javascript
 // touch events
