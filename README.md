@@ -1,5 +1,5 @@
 # Simple Slide-Show 1.0.0
-A simple responsive slide-show. Requires jQuery (1.11+).
+A simple responsive slide-show. Requires jQuery (1.7+).
 
 Tested support for: Chrome, Firefox, Safari, IE8+. Older browsers that do not support CSS3 drop transition effects but retain basic slider functionality.
 
