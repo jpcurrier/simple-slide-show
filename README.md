@@ -1,9 +1,11 @@
-# Simple Slide-Show v0.0.1
+# Simple Slide-Show 1.0.0
 A simple responsive slide-show. Requires jQuery (1.11+).
+
+Tested support for: Chrome, Firefox, Safari, IE8+. Older browsers that do not support CSS3 drop transition effects but retain basic slider functionality.
 
 ## Setup
 
-Include jQuery (1.11+) and the Simple Slide-show plugin files.
+Include jQuery (1.7+) and the Simple Slide-show plugin files.
 
 ```html
 <!-- Simple Slide-Show Stylesheet -->
@@ -63,17 +65,17 @@ autosize | boolean | true | Size slide-show to height of tallest slide content
 
 ## Additional Functionality
 
-This plugin integrates well with [Hammer.js](https://github.com/hammerjs/hammer.js) for touch functionality. If Hammer.js is loaded, touch functionality can be enabled by inserting the following code before the `autoPlayFn()` definition inside the `simple-slide-show.js` script.
+This plugin can integrate with [Hammer.js](https://github.com/hammerjs/hammer.js) for touch functionality. If Hammer.js is loaded, touch functionality can be enabled by inserting the following code into the `simple-slide-show.js` plugin definition inside: `return this.each( function(){ ... } );`
 
 ```javascript
 // touch events
-var touch = new Hammer( $( container )[ 0 ] );
+var touch = new Hammer( $container[ 0 ] );
 touch.on( 'panright panleft', function( e ){
   clearInterval( autoPlay );
 
   if( !animating ){
     animating = true;
-    var current = container.find( '.simple-slide-show > ul > li.on' ).index();
+    var current = $container.children( 'ul' ).children( '.on' ).index();
 
     if( e.type == 'panright' ){
       if( current > 0 ) slideBack( current );
