@@ -2,8 +2,7 @@
 .simple-slide-show figure:before,
 .simple-slide-show figure:after,
 .slide-index > li,
-div.product .slide-control:before,
-div.product .slide-control:after{
+.slide-control{
 	-o-transition: all 200ms ease-out;
 	-moz-transition: all 200ms ease-out;
 	-webkit-transition: all 200ms ease-out;
@@ -20,7 +19,7 @@ div.product .slide-control:after{
 }
 .simple-slide-show > ul,
 .simple-slide-show > ul > li,
-.simple-slide-show > ul figure{
+.simple-slide-show figure{
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -33,14 +32,14 @@ div.product .slide-control:after{
 	margin: 0;
 	overflow: hidden;
 }
-.simple-slide-show .simple-slide-show > ul > li{
+.simple-slide-show.fade > ul > li{
 	opacity: 0;
 }
 .simple-slide-show > ul > .on{
 	z-index: 3;
 }
-.simple-slide-show .simple-slide-show > ul > .off,
-.simple-slide-show .simple-slide-show > ul > .on{
+.simple-slide-show.fade > ul > .off,
+.simple-slide-show.fade > ul > .on{
 	opacity: 1;
 }
 .simple-slide-show > ul > .to-left,
@@ -48,7 +47,7 @@ div.product .slide-control:after{
 .simple-slide-show > ul > .off{
 	z-index: 2;
 }
-.simple-slide-show > ul figure{
+.simple-slide-show figure{
 	margin: 0;
 	background-position: center;
 	background-size: cover;
@@ -74,8 +73,11 @@ div.product .slide-control:after{
 }
 .slide-controls{
 	position: absolute;
+	top: 0;
 	right: 0;
+	bottom: 0;
 	left: 0;
+	height: 0;
 	margin: auto;
 	overflow: visible;
 	z-index: 4;
@@ -86,6 +88,7 @@ div.product .slide-control:after{
 	padding: 0;
 	border: none;
 	outline: none;
+	cursor: pointer;
 }
 .slide-control.prev{
 	left: 15px;
@@ -189,42 +192,20 @@ div.product .slide-control:after{
 	animation: none;
 }
 /* simple slide-show: customizations */
-.simple-slide-show{
-	height: 200px;
+.simple-slide-show figure{
+	padding: 15px 92px 48px;
 }
 .simple-slide-show figure:before{
 	background: #94908f;
 }
-.simple-slide-show > ul figure > a{
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-}
-.simple-slide-show > ul figure .banner-small{
-	position: absolute;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	background-position: center;
-	background-size: cover;
-}
-.slide-controls{
-	top: 0;
-	bottom: 0;
-	height: 0;
-}
 .slide-control{
-	top: -254px;
+	top: 0;
+	bottom: 0;
 	display: none;
 	width: 28px;
 	height: 50px;
+	margin: auto 0;
 	background-color: transparent;
-}
-header.page .slide-control{
-	top: -25px;
 }
 .slide-control:before,
 .slide-control:after{
@@ -288,6 +269,7 @@ header.page .slide-control{
 .slide-index{
 	bottom: 21px;
 	padding: 0 1px; /* screen glitch */
+	margin: 0;
 }
 .slide-index > li{
 	width: 10px;

@@ -1,15 +1,13 @@
-// slide-show
-var autoPlay;
-
+/*! Simple Slide-Show 1.0.0 | MIT *
+ * https://github.com/jpcurrier/simple-slide-show !*/
 ( function( $ ){
 	$.fn.simpleSlideShow = function( options ){
 
 		// default options
 		var settings = $.extend({
-			speed: 5000,
+			autoplay: true,
 			controls: true,
 			index: true,
-			autoplay: true,
 			effect: 'slide',
 			autosize: true
 		}, options );
@@ -17,7 +15,7 @@ var autoPlay;
 		return this.each( function(){
 			var $container = $( this ),
 				$slide = $container.children( 'ul' ).children( 'li' ),
-				slideCount = $container.children( 'ul' ).children( 'li' ).length,
+				slideCount = $slide.length,
 				animating = false,
 				slideTransition = 0;
 			if( $slide.css( 'transition-duration' ) )
@@ -27,8 +25,10 @@ var autoPlay;
 							parseFloat( $slide.css( 'transition-duration' ) ) * 1000;
 			var directions =
 				settings.controls ?
-					'<button type="button" class="slide-control prev"></button>' +
-					'<button type="button" class="slide-control next"></button>'
+					'<div class="slide-controls">' +
+						'<button type="button" class="slide-control prev"></button>' +
+						'<button type="button" class="slide-control next"></button>' +
+					'</div>'
 						: '';
 			var index = '';
 			if( settings.index ){
@@ -42,12 +42,16 @@ var autoPlay;
 				}
 				index = '<ol class="slide-index">' + slideMarks + '</ol>';
 			}
+			var speed =
+				settings.autoplay === true ?
+					5000 : // default
+						settings.autoplay;
 
 			$container.addClass( 'simple-slide-show loading' );
 			if( settings.effect == 'fade' )
 				$container.addClass( 'fade' );
 			$container.children( 'ul' ).children( 'li:first-child' ).addClass( 'on' );
-			$container.append( '<div class="slide-controls">' + directions + '</div>' + index );
+			$container.append( directions + index );
 
 			function slideForward( current ){
 				if( settings.effect == 'fade' )
@@ -104,7 +108,7 @@ var autoPlay;
 				}, slideTransition );
 			}
 			function updateIndex( current ){
-				$container.find( '.slide-index > li.on' ).removeClass( 'on' );
+				$container.find( '.slide-index > .on' ).removeClass( 'on' );
 				$container.find( '.slide-index > li' ).eq( current ).addClass( 'on' );
 			}
 
@@ -171,6 +175,7 @@ var autoPlay;
 			});
 
 			// autoplay
+			var autoPlay;
 			function autoPlayFn(){
 				var current = $container.children( 'ul' ).children( '.on' ).index();
 
@@ -183,7 +188,7 @@ var autoPlay;
 				if( $container.hasClass( 'loading' ) ){
 					$container.removeClass( 'loading' );
 					if( settings.autoplay )
-						autoPlay = setInterval( autoPlayFn, settings.speed + slideTransition );
+						autoPlay = setInterval( autoPlayFn, speed + slideTransition );
 				}
 			} );
 			// hacky fallback if window load never resolves:
@@ -191,27 +196,33 @@ var autoPlay;
 				if( $container.hasClass( 'loading' ) ){
 					$container.removeClass( 'loading' );
 					if( settings.autoplay )
-						autoPlay = setInterval( autoPlayFn, settings.speed + slideTransition );
+						autoPlay = setInterval( autoPlayFn, speed + slideTransition );
 				}
 			}, 4000 );
 
 			if( settings.autosize ){
-				/*
 				function slideHeights(){
-					$( '.testimonials' ).each( function(){
-						var padding = parseInt( $( this ).css( 'padding-top' ), 10 ) + parseInt( $( this ).css( 'padding-bottom' ), 10 );
-
-						var tallest = 0;
-						$( this ).find( '.simple-slide-show > ul > li > figure > div > div > div' ).each( function(){
-							var h = $( this ).outerHeight( true );
-							if( h > tallest )
-								tallest = h;
-						});
-						$( this ).css({ 'height': tallest + padding });
+					var padding = parseInt( $slide.children( 'figure' ).css( 'padding-top' ), 10 ) + parseInt( $slide.children( 'figure' ).css( 'padding-bottom' ), 10 ),
+						tallest = 0;
+					$slide.each( function(){
+						var h = 0;
+						$( this ).children( 'figure' ).children().each( function(){
+							if( $( this ).css( 'position' ) != 'absolute' && $( this ).css( 'position' ) != 'fixed' )
+								h += Math.ceil( $( this ).outerHeight( true ) );
+						} );
+						tallest = h > tallest ? h : tallest;
 					} );
+					$container.css({ height: tallest + padding });
 				}
 				slideHeights();
-				*/
+
+				var delay;
+				$( window ).on( 'resize', function(){
+					clearTimeout( delay );
+					delay = setTimeout( function(){
+						slideHeights();
+					}, 100 );
+				} );
 			}
 
 			// detect: Android
