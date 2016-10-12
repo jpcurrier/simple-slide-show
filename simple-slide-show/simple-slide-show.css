@@ -1,4 +1,4 @@
-x/* simple slide-show */
+/* simple slide-show */
 .simple-slide-show figure:before,
 .simple-slide-show figure:after,
 .slide-index > li,
@@ -193,7 +193,7 @@ x/* simple slide-show */
 }
 /* simple slide-show: customizations */
 .simple-slide-show figure{
-	padding: 15px 92px 48px;
+	padding: 30px 92px 48px;
 }
 .simple-slide-show figure:before{
 	background: #94908f;

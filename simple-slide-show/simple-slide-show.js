@@ -1,4 +1,4 @@
-x/*! Simple Slide-Show 1.0.0 | MIT *
+/*! Simple Slide-Show 1.0.0 | MIT *
  * https://github.com/jpcurrier/simple-slide-show !*/
 ( function( $ ){
 	$.fn.simpleSlideShow = function( options ){

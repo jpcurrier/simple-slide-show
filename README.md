@@ -1,11 +1,12 @@
 # Simple Slide-Show
+
 A simple responsive slide-show. Requires jQuery 1.7+.
 
 Support: Chrome, Firefox, Safari, IE8+. Older browsers that do not support CSS3 drop transition effects but retain basic slider functionality.
 
 ## Setup
 
-Include jQuery (1.7+) and the Simple Slide-show plugin files.
+Include jQuery (1.7+) and the Simple Slide-Show plugin files.
 
 ```html
 <!-- Simple Slide-Show Stylesheet -->
@@ -18,6 +19,8 @@ Include jQuery (1.7+) and the Simple Slide-show plugin files.
 Slides are list items wrapped in a container element (classified `simple-slide-show` in the following example). Each list item contains a `figure` element that wraps slide content. This `figure` element can take a `background` style for full-slide images.
 
 The `loading` class applied to the container and the `on` class applied to the first slide will be added by the jQuery plugin if they are omitted in the HTML, but loading is smoother if they are included in the layout code.
+
+With all of that in mind, insert the layout code for the slide-show, which consists of: a container element and a list of `figure` elements with slide content.
 
 ```html
 <div class="simple-slide-show loading">
@@ -41,7 +44,7 @@ The `loading` class applied to the container and the `on` class applied to the f
 </div>
 ```
 
-Call the plugin with jQuery.
+Call the plugin on the slide-show container element with jQuery. The `simple-slide-show` class will be applied automatically if it is not already present on the container element called.
 
 ```javascript
 // simple
