@@ -55,7 +55,7 @@ $( '.simple-slide-show' ).simpleSlideShow({
 
 Setting | Type | Default | Description
 --- | --- | --- | ---
-autoplay | integer or boolean | 5000 | The amount of time in milliseconds between slides. If set to false or 0, slide-show will not autoplay.
+autoplay | integer or boolean | 5000 | The amount of time in milliseconds between slides. If set to `false` or `0`, the slide-show will not autoplay.
 controls | boolean | true | Show directional controls (left and right buttons)
 index | boolean | true | Show navigation index controls (persistent sequential buttons)
 effect | string | 'slide' | Transition effect: `'slide'` or `'fade'`
