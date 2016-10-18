@@ -25,10 +25,8 @@
 							parseFloat( $slide.css( 'transition-duration' ) ) * 1000;
 			var directions =
 				settings.controls ?
-					'<div class="slide-controls">' +
-						'<button type="button" class="slide-control prev"></button>' +
-						'<button type="button" class="slide-control next"></button>' +
-					'</div>'
+					'<button type="button" class="slide-control prev"></button>' +
+					'<button type="button" class="slide-control next"></button>'
 						: '';
 			var index = '';
 			if( settings.index ){
@@ -179,8 +177,14 @@
 			function autoPlayFn(){
 				var current = $container.children( 'ul' ).children( '.on' ).index();
 
+				animating = true;
+
 				if( current < slideCount - 1 ) slideForward( current );
 				else slideRestart( current );
+
+				setTimeout( function(){
+					animating = false;
+				}, slideTransition );
 			}
 
 			// loading
