@@ -38,7 +38,7 @@
 							'';
 					slideMarks += '<li data-target="' + i + '"' + firstClass + '></li>';
 				}
-				index = '<ol class="slide-index">' + slideMarks + '</ol>';
+				index = '<ol class="slide-index">' + slideMarks + '<div class="index-underline"></div></ol>';
 			}
 			var speed =
 				settings.autoplay === true ?
@@ -108,6 +108,10 @@
 			function updateIndex( current ){
 				$container.find( '.slide-index > .on' ).removeClass( 'on' );
 				$container.find( '.slide-index > li' ).eq( current ).addClass( 'on' );
+
+				// move underline
+				var pos = $( '.slide-index > .on' ).index() * $( '.slide-index > li:last-of-type' ).outerWidth( true ) + parseInt( $( '.slide-index' ).css( 'padding-left' ) );
+				$( '.index-underline' ).css( 'left', pos );
 			}
 
 			// controls: directional
