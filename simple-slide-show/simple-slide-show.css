@@ -3,12 +3,17 @@
 .simple-slide-show figure:after,
 .slide-index,
 .slide-index > li,
-.index-underline,
-.slide-control{
+.slide-control > div{
 	-o-transition: all 200ms ease-out;
 	-moz-transition: all 200ms ease-out;
 	-webkit-transition: all 200ms ease-out;
 	transition: all 200ms ease-out;
+}
+.index-underline{
+	-o-transition: all 1000ms ease-out;
+	-moz-transition: all 1000ms ease-out;
+	-webkit-transition: all 1000ms ease-out;
+	transition: all 1000ms ease-out;
 }
 .simple-slide-show > ul > li{
 	-o-transition: opacity 1000ms ease-out;
@@ -86,11 +91,10 @@
 	z-index: 4;
 	padding: 0;
 	border: none;
-	opacity: 0;
 	outline: none;
 	cursor: pointer;
 }
-.simple-slide-show:hover .slide-control:hover{
+.simple-slide-show:hover .slide-control:hover > div{
 	opacity: 1;
 }
 .slide-control.prev{
@@ -222,56 +226,73 @@
 	margin: auto 0;
 	background-color: transparent;
 }
-.slide-control:before,
-.slide-control:after{
-	content: '';
+.slide-control > div{
 	position: absolute;
 	top: 0;
+	right: 0;
 	bottom: 0;
-	width: 35px;
-	height: 1px;
-	margin: auto 0;
-	background-color: #ededed;
+	left: 0;
+	width: 1px;
+	height: 50px;
+	margin: auto;
+	background-color: #fff;
+	opacity: 0;
 }
-.slide-control.prev{
+.slide-control.prev > div{
 	-ms-transform: translateX( 50px );
 	-webkit-transform: translateX( 50px );
 	transform: translateX( 50px );
 }
-.slide-control.prev:before,
-.slide-control.prev:after{
-	left: 37px;
-}
-.slide-control.prev:before{
-	-ms-transform: translateX( -4px ) translateY( -12px ) rotate( -45deg );
-	-webkit-transform: translateX( -4px ) translateY( -12px ) rotate( -45deg );
-	transform: translateX( -4px ) translateY( -12px ) rotate( -45deg );
-}
-.slide-control.prev:after{
-	-ms-transform: translateX( -4px ) translateY( 12px ) rotate( 45deg );
-	-webkit-transform: translateX( -4px ) translateY( 12px ) rotate( 45deg );
-	transform: translateX( -4px ) translateY( 12px ) rotate( 45deg );
-}
-.slide-control.next{
+.slide-control.next > div{
 	-ms-transform: translateX( -50px );
 	-webkit-transform: translateX( -50px );
 	transform: translateX( -50px );
 }
-.slide-control.next:before,
-.slide-control.next:after{
-	right: 37px;
+.slide-control > div:before,
+.slide-control > div:after{
+	content: '';
+	position: absolute;
+	width: 35px;
+	height: 1px;
+	background-color: #fff;
 }
-.slide-control.next:before{
-	-ms-transform: translateX( 4px ) translateY( -12px ) rotate( 45deg );
-	-webkit-transform: translateX( 4px ) translateY( -12px ) rotate( 45deg );
-	transform: translateX( 4px ) translateY( -12px ) rotate( 45deg );
+.slide-control.prev > div:before,
+.slide-control.next > div:before{
+	top: 12px;
 }
-.slide-control.next:after{
-	-ms-transform: translateX( 4px ) translateY( 12px ) rotate( -45deg );
-	-webkit-transform: translateX( 4px ) translateY( 12px ) rotate( -45deg );
-	transform: translateX( 4px ) translateY( 12px ) rotate( -45deg );
+.slide-control.prev > div:after,
+.slide-control.next > div:after{
+	bottom: 12px;
 }
-.simple-slide-show:hover .slide-control{
+.slide-control.prev > div:before,
+.slide-control.prev > div:after{
+	right: -5px;
+}
+.slide-control.prev > div:before{
+	-ms-transform: rotate( -45deg );
+	-webkit-transform: rotate( -45deg );
+	transform: rotate( -45deg );
+}
+.slide-control.prev > div:after{
+	-ms-transform: rotate( 45deg );
+	-webkit-transform: rotate( 45deg );
+	transform: rotate( 45deg );
+}
+.slide-control.next > div:before,
+.slide-control.next > div:after{
+	left: -5px;
+}
+.slide-control.next > div:before{
+	-ms-transform: rotate( 45deg );
+	-webkit-transform: rotate( 45deg );
+	transform: rotate( 45deg );
+}
+.slide-control.next > div:after{
+	-ms-transform: rotate( -45deg );
+	-webkit-transform: rotate( -45deg );
+	transform: rotate( -45deg );
+}
+.simple-slide-show:hover .slide-control > div{
 	opacity: 0.66;
 	-ms-transform: translateX( 0px );
 	-webkit-transform: translateX( 0px );
@@ -281,6 +302,9 @@
 	bottom: 21px;
 	padding: 0 1px; /* screen glitch */
 	margin: 0;
+	-ms-transform: translateX( -50% );
+	-webkit-transform: translateX( -50% );
+	transform: translateX( -50% );
 }
 .slide-index > li{
 	width: 12px;

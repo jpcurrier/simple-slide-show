@@ -25,8 +25,8 @@
 							parseFloat( $slide.css( 'transition-duration' ) ) * 1000;
 			var directions =
 				settings.controls ?
-					'<button type="button" class="slide-control prev"></button>' +
-					'<button type="button" class="slide-control next"></button>'
+					'<button class="slide-control prev"><div></div></button>' +
+					'<button class="slide-control next"><div></div></button>'
 						: '';
 			var index = '';
 			if( settings.index ){
