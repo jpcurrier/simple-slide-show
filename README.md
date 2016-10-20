@@ -16,16 +16,14 @@ Include jQuery (1.7+) and the Simple Slide-Show plugin files.
 <script src="simple-slide-show/simple-slide-show.js"></script>
 ```
 
-Slides are list items wrapped in a container element (classified `simple-slide-show` in the following example). Each list item contains a `figure` element that wraps slide content. This `figure` element can take a `background` style for full-slide images.
+Slides are list items wrapped in a container element. Each list item contains a `figure` element that wraps slide content. This `figure` element can take a `background` style for full-slide images.
 
-The `loading` class applied to the container and the `on` class applied to the first slide will be added by the jQuery plugin if they are omitted in the HTML, but loading is smoother if they are included in the layout code.
-
-With all of that in mind, insert the layout code for the slide-show, which consists of: a container element and a list of `figure` elements with slide content.
+The `simple-slide-show` class on the container is not mandatory in your layout code, but will be added automatically to the container by plugin script if it is not already present.
 
 ```html
-<div class="simple-slide-show loading">
+<div class="simple-slide-show">
   <ul>
-    <li class="on">
+    <li>
       <figure>
         <p>First Slide</p>
       </figure>

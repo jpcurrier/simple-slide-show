@@ -45,7 +45,7 @@
 					5000 : // default
 						settings.autoplay;
 
-			$container.addClass( 'simple-slide-show loading' );
+			$container.addClass( 'simple-slide-show' );
 			if( settings.effect == 'fade' )
 				$container.addClass( 'fade' );
 			$container.children( 'ul' ).children( 'li:first-child' ).addClass( 'on' );
@@ -193,16 +193,16 @@
 
 			// loading
 			$( window ).on( 'load', function(){
-				if( $container.hasClass( 'loading' ) ){
-					$container.removeClass( 'loading' );
+				if( !$container.hasClass( 'simple-slide-show-ready' ) ){
+					$container.addClass( 'simple-slide-show-ready' );
 					if( settings.autoplay )
 						autoPlay = setInterval( autoPlayFn, speed + slideTransition );
 				}
 			} );
 			// hacky fallback if window load never resolves:
 			setTimeout( function(){
-				if( $container.hasClass( 'loading' ) ){
-					$container.removeClass( 'loading' );
+				if( !$container.hasClass( 'simple-slide-show-ready' ) ){
+					$container.addClass( 'simple-slide-show-ready' );
 					if( settings.autoplay )
 						autoPlay = setInterval( autoPlayFn, speed + slideTransition );
 				}
