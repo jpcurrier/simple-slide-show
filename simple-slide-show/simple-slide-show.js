@@ -40,6 +40,7 @@
 				}
 				index = '<ol class="slide-index">' + slideMarks + '<div class="index-underline"></div></ol>';
 			}
+			$container.append( directions + index );
 			var speed =
 				settings.autoplay === true ?
 					5000 : // default
@@ -48,8 +49,10 @@
 			$container.addClass( 'simple-slide-show' );
 			if( settings.effect == 'fade' )
 				$container.addClass( 'fade' );
+
 			$container.children( 'ul' ).children( 'li:first-child' ).addClass( 'on' );
-			$container.append( directions + index );
+			if( settings.effect == 'slide' )
+				$container.children( 'ul' ).children( 'li:not( .on )' ).addClass( 'to-left-init' );
 
 			function slideForward( current ){
 				if( settings.effect == 'fade' )
@@ -89,7 +92,7 @@
 			}
 			function slideIn( i, direction ){
 				$slide.eq( i )
-					.removeClass( 'to-left to-right' )
+					.removeClass( 'to-left-init to-left to-right' )
 					.addClass( 'on from-' + direction );
 			}
 			function slideOut( i, direction ){
