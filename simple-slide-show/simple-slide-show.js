@@ -18,11 +18,6 @@
 				slideCount = $slide.length,
 				animating = false,
 				slideTransition = 0;
-			if( $slide.css( 'transition-duration' ) )
-				var slideTransition =
-					( $slide.css( 'transition-duration' ).indexOf( 'ms' ) > -1 ) ?
-						parseFloat( $slide.css( 'transition-duration' ) ) :
-							parseFloat( $slide.css( 'transition-duration' ) ) * 1000;
 			var directions =
 				settings.controls ?
 					'<button class="slide-control prev"><div></div></button>' +
@@ -195,21 +190,22 @@
 			}
 
 			// loading
-			$( window ).on( 'load', function(){
+			function loaded(){
 				if( !$container.hasClass( 'simple-slide-show-ready' ) ){
 					$container.addClass( 'simple-slide-show-ready' );
+					if( $slide.css( 'transition-duration' ) )
+						slideTransition =
+							( $slide.css( 'transition-duration' ).indexOf( 'ms' ) > -1 ) ?
+								parseFloat( $slide.css( 'transition-duration' ) ) :
+									parseFloat( $slide.css( 'transition-duration' ) ) * 1000;
+
 					if( settings.autoplay )
 						autoPlay = setInterval( autoPlayFn, speed + slideTransition );
 				}
-			} );
+			}
+			$( window ).on( 'load', loaded );
 			// hacky fallback if window load never resolves:
-			setTimeout( function(){
-				if( !$container.hasClass( 'simple-slide-show-ready' ) ){
-					$container.addClass( 'simple-slide-show-ready' );
-					if( settings.autoplay )
-						autoPlay = setInterval( autoPlayFn, speed + slideTransition );
-				}
-			}, 4000 );
+			setTimeout( loaded, 4000 );
 
 			if( settings.autosize ){
 				function slideHeights(){
