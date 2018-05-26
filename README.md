@@ -1,12 +1,12 @@
 # Simple Slide-Show
 
-A simple responsive slide-show. Requires jQuery 1.7+.
+A simple responsive slide-show.
 
-Support: Chrome, Firefox, Safari, IE8+. Older browsers that do not support CSS3 drop transition effects but retain basic slider functionality.
+Support: Chrome, Firefox, Safari, IE8+. Browsers that do not support CSS3 drop transition effects but retain basic slider functionality.
 
 ## Setup
 
-Include jQuery (1.7+) and the Simple Slide-Show plugin files.
+Include the Simple Slide-Show stylesheet and script.
 
 ```html
 <!-- Simple Slide-Show Stylesheet -->
@@ -18,7 +18,7 @@ Include jQuery (1.7+) and the Simple Slide-Show plugin files.
 
 Slides are list items wrapped in a container element. Each list item contains a `figure` element that wraps slide content. This `figure` element can take a `background` style for full-slide images.
 
-The `simple-slide-show` class on the container is not mandatory in your layout code, but will be added automatically to the container by plugin script if it is not already present.
+The `simple-slide-show` class on the container is not mandatory in your layout code, but will be added automatically to the container by the script if not already present.
 
 ```html
 <div class="simple-slide-show">
@@ -42,20 +42,37 @@ The `simple-slide-show` class on the container is not mandatory in your layout c
 </div>
 ```
 
-Call the plugin on the slide-show container element with jQuery. The `simple-slide-show` class will be applied automatically if it is not already present on the container element called.
+Initialize the plugin on the slide-show container.
 
 ```javascript
-// simple
+// jQuery (1.7+) with default settings
 $( '.simple-slide-show' ).simpleSlideShow();
 
-// custom settings
+// jQuery (1.7+) with custom settings
 $( '.simple-slide-show' ).simpleSlideShow({
   autoplay: 5000,
   controls: true,
   index: true,
+  indexUnderline: true,
   effect: 'fade',
   autosize: false
 });
+
+// vanilla JavaScript with default settings
+var simpleSlideShow = new SimpleSlideShow( '.simple-slide-show' );
+
+// vanilla JavaScript with custom settings
+var simpleSlideShow = new SimpleSlideShow(
+  '.simple-slide-show',
+  {
+    autoplay: 5000,
+    controls: true,
+    index: true,
+    indexUnderline: true,
+    effect: 'fade',
+    autosize: false
+  }
+);
 ```
 
 ## Settings
@@ -65,35 +82,7 @@ Setting | Type | Default | Description
 autoplay | integer or boolean | 5000 | The amount of time in milliseconds between slides. If set to `false` or `0`, the slide-show will not advance automatically.
 controls | boolean | true | Show sequential navigation controls (left and right buttons).
 index | boolean | true | Show indexed navigation controls (slide jump buttons).
+indexUnderline | boolean | true | Underline current index.
 effect | string | 'slide' | Transition effect: `'slide'` or `'fade'`.
 autosize | boolean | true | Size slide-show to height of tallest slide content. Set `false` if using CSS to set height of slide-show.
-
-## Additional Functionality
-
-This plugin integrates with [Hammer.js](https://github.com/hammerjs/hammer.js) for touch functionality. If Hammer.js is loaded, touch functionality can be enabled by inserting the following code into the `return this.each( function(){ ... } );` function inside the `simple-slide-show.js` script.
-
-```javascript
-// touch events
-var touch = new Hammer( $container[ 0 ] );
-touch.on( 'panright panleft', function( e ){
-  clearInterval( autoPlay );
-
-  if( !animating ){
-    animating = true;
-    var current = $container.children( 'ul' ).children( '.on' ).index();
-
-    if( e.type == 'panright' ){
-      if( current > 0 ) slideBack( current );
-      else slideLast( current );
-    }
-    if( e.type == 'panleft' ){
-      if( current < slideCount - 1 ) slideForward( current );
-      else slideRestart( current );
-    }
-
-    setTimeout( function(){
-      animating = false;
-    }, slideTransition );
-  }
-} );
-```
+hammerJS | boolean | false | Enable touch functionality if [Hammer.js](https://github.com/hammerjs/hammer.js) is included on your page.

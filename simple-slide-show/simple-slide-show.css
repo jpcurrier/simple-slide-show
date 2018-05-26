@@ -189,13 +189,13 @@
 	opacity: 0;
 }
 /* simple slide-show: oversimplified effect kill on Android */
-.ua-android .from-left figure,
+/*.ua-android .from-left figure,
 .ua-android .from-right figure,
 .ua-android .to-left figure,
 .ua-android .to-right figure{
 	-webkit-animation: none;
 	animation: none;
-}
+}*/
 /* simple slide-show: basic theme */
 .simple-slide-show figure{
 	padding: 30px 92px 48px;

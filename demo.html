@@ -37,14 +37,16 @@
       </li>
     </ul>
   </div>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="simple-slide-show/simple-slide-show.js"></script>
   <script>
-    $( '.simple-slide-show' ).simpleSlideShow({
-      autoplay: 3000,
-      effect: 'fade',
-      autosize: true
-    });
+    var simpleSlideShow = new SimpleSlideShow(
+      '.simple-slide-show',
+      {
+        autoplay: 3000,
+        effect: 'fade',
+        autosize: true
+      }
+    );
   </script>
 </body>
 
