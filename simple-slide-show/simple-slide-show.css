@@ -145,7 +145,7 @@
 	opacity: 0;
 }
 .simple-slide-show:hover .slide-index > li,
-.simple-slide-show:hover .index-underline{
+.simple-slide-show:hover .slide-index.underline > li + .index-underline{
 	opacity: 0.66;
 }
 /* simple slide-show: loading */
@@ -323,7 +323,7 @@
 @media screen and ( min-width: 992px ){
 
   /* slide-show: custom */
-  .slide-control{
+  .simple-slide-show.slide-controls .slide-control{
     display: block;
   }
 

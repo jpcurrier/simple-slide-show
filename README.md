@@ -54,8 +54,9 @@ $( '.simple-slide-show' ).simpleSlideShow({
   controls: true,
   index: true,
   indexUnderline: true,
-  effect: 'fade',
-  autosize: false
+  effect: 'slide',
+  autosize: true,
+  hammerJS: false
 });
 
 // vanilla JavaScript with default settings
@@ -69,8 +70,9 @@ var simpleSlideShow = new SimpleSlideShow(
     controls: true,
     index: true,
     indexUnderline: true,
-    effect: 'fade',
-    autosize: false
+    effect: 'slide',
+    autosize: true,
+    hammerJS: false
   }
 );
 ```

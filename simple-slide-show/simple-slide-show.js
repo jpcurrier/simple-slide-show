@@ -143,53 +143,69 @@ SimpleSlideShow.prototype.init = function(){
           parseFloat( slideTransitionDuration ) :
             parseFloat( slideTransitionDuration ) * 1000;
 
-    if( settings.controls && !document.querySelector( 'button.slide-control.next' ) ){
-      var prevButton = document.createElement( 'button' ),
-        nextButton = document.createElement( 'button' );
-      prevButton.appendChild( document.createElement( 'div' ) );
-      prevButton.className = "slide-control prev";
-      nextButton.appendChild( document.createElement( 'div' ) );
-      nextButton.className = "slide-control next";
-      container.appendChild( prevButton );
-      container.appendChild( nextButton );
-      prevButton.addEventListener(
-        'click',
-        function(){
-          slideControl( prevButton );
-        }
-      );
-      nextButton.addEventListener(
-        'click',
-        function(){
-          slideControl( nextButton );
-        }
-      );
+    if( settings.controls ){
+      util.addClass( container, 'slide-controls' );
+      if( !document.querySelector( 'button.slide-control.next' ) ){
+        var prevButton = document.createElement( 'button' ),
+          nextButton = document.createElement( 'button' );
+        prevButton.appendChild( document.createElement( 'div' ) );
+        prevButton.className = "slide-control prev";
+        nextButton.appendChild( document.createElement( 'div' ) );
+        nextButton.className = "slide-control next";
+        container.appendChild( prevButton );
+        container.appendChild( nextButton );
+        prevButton.addEventListener(
+          'click',
+          function(){
+            slideControl( prevButton );
+          }
+        );
+        nextButton.addEventListener(
+          'click',
+          function(){
+            slideControl( nextButton );
+          }
+        );
+      }
     }
+    else
+      util.removeClass( container, 'slide-controls' );
 
     var index = container.querySelector( 'ol.slide-index' ),
-      currentIndexLength = container.querySelectorAll( 'ol.slide-index > li' ).length,
-      indexUnderline = container.querySelector( 'div.index-underline' );
-    if( settings.index && currentIndexLength !== slide.length ){
-      if( !index ){
-        index = document.createElement( 'ol' );
-        index.className = "slide-index";
-        container.appendChild( index );
-      }
-      for( var i = currentIndexLength; i < slide.length; i++ ){
+      indexUnderline = container.querySelector( 'div.index-underline' ),
+      slideOn = 0;
+    for( var i = 0; i < slide.length; i++ )
+      if( util.hasClass( slide[ i ], 'on' ) )
+        slideOn = i;
+    if( index ){ // reset
+      var jumps = index.getElementsByTagName( 'li' );
+      for( var i = jumps.length - 1; i >= 0; i-- )
+        index.removeChild( index.firstChild );
+    }
+    else{
+      index = document.createElement( 'ol' );
+      index.className = "slide-index";
+      container.appendChild( index );
+    }
+    if( settings.index ){
+      for( var i = 0; i < slide.length; i++ ){
         var jump = document.createElement( 'li' );
         jump.setAttribute( 'data-target', i );
-        if( i === 0 )
+        if( i === slideOn )
           jump.className = "on";
         index.appendChild( jump );
       }
-      if( settings.indexUnderline && !indexUnderline ){
+      if( !indexUnderline ){
         indexUnderline = document.createElement( 'div' );
         indexUnderline.className = "index-underline";
-        index.appendChild( indexUnderline );
       }
+      index.appendChild( indexUnderline );
     }
-    else if( !settings.index && container.querySelector( 'ol.slide-index' ) )
-      container.removeChild( container.querySelector( 'ol.slide-index' ) );
+    // show/hide underline
+    if( settings.indexUnderline )
+      util.addClass( index, 'underline' );
+    else
+      util.removeClass( index, 'underline' );
 
     var speed =
       settings.autoplay === true ?
@@ -271,7 +287,8 @@ SimpleSlideShow.prototype.init = function(){
         slideIn( current + 1, 'right' );
         slideOut( current, 'left' );
       }
-      updateIndex( current + 1 );
+      if( settings.index )
+        updateIndex( current + 1 );
     }
     function slideBack( current ){
       if( settings.effect == 'fade' )
@@ -280,7 +297,8 @@ SimpleSlideShow.prototype.init = function(){
         slideIn( current - 1, 'left' );
         slideOut( current, 'right' );
       }
-      updateIndex( current - 1 );
+      if( settings.index )
+        updateIndex( current - 1 );
     }
     function slideRestart( current ){
       if( settings.effect == 'fade' )
@@ -289,7 +307,8 @@ SimpleSlideShow.prototype.init = function(){
         slideIn( 0, 'right' );
         slideOut( current, 'left' );
       }
-      updateIndex( 0 );
+      if( settings.index )
+        updateIndex( 0 );
     }
     function slideLast( current ){
       if( settings.effect == 'fade' )
@@ -298,12 +317,13 @@ SimpleSlideShow.prototype.init = function(){
         slideIn( slide.length - 1, 'left' );
         slideOut( current, 'right' );
       }
-      updateIndex( slide.length - 1 );
+      if( settings.index )
+        updateIndex( slide.length - 1 );
     }
 
     // controls: directional
     function slideControl( el ){
-      clearInterval( autoPlay );
+      stopAutoPlay();
 
       if( !animating ){
         animating = true;
@@ -333,7 +353,7 @@ SimpleSlideShow.prototype.init = function(){
 
     // controls: indexed
     function slideIndex( i ){
-      clearInterval( autoPlay );
+      stopAutoPlay();
 
       if( !animating ){
         animating = true;
@@ -377,12 +397,6 @@ SimpleSlideShow.prototype.init = function(){
     }
     if( index )
       for( var i = 0; i < index.children.length; i++ ){
-        // reset
-        index.children[ i ].removeEventListener(
-          'click',
-          setSlideIndex
-        );
-        // set
         index.children[ i ].addEventListener(
           'click',
           setSlideIndex
@@ -390,7 +404,7 @@ SimpleSlideShow.prototype.init = function(){
       }
 
     // autoplay
-    var autoPlay;
+    var autoPlay = container.getAttribute( 'data-play' );
     function autoPlayFn(){
       animating = true;
 
@@ -408,6 +422,17 @@ SimpleSlideShow.prototype.init = function(){
         animating = false;
       }, slideTransition );
     }
+    function startAutoPlay(){
+      autoPlay = setInterval( autoPlayFn, speed + slideTransition );
+      container.setAttribute( 'data-play', autoPlay );
+    }
+    function stopAutoPlay(){
+      var autoPlay = container.getAttribute( 'data-play' ); // otherwise var gets stuck with value at first call?
+      clearInterval( autoPlay );
+      container.removeAttribute( 'data-play' );
+    }
+    if( util.hasClass( container, 'simple-slide-show-ready' ) && settings.autoplay && !autoPlay )
+      startAutoPlay();
 
     // loading
     function loaded(){
@@ -422,7 +447,7 @@ SimpleSlideShow.prototype.init = function(){
                 parseFloat( slideTransitionDuration ) * 1000;
 
         if( settings.autoplay )
-          autoPlay = setInterval( autoPlayFn, speed + slideTransition );
+          startAutoPlay();
       }
     }
     addEventListener( 'load', loaded );
@@ -467,7 +492,7 @@ SimpleSlideShow.prototype.init = function(){
       container.setAttribute( 'data-sss-touch', 'true' );
     }
     function touchNav( e ){
-      clearInterval( autoPlay );
+      stopAutoPlay();
 
       if( !animating ){
         animating = true;
