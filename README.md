@@ -56,7 +56,8 @@ $( '.simple-slide-show' ).simpleSlideShow({
   indexUnderline: true,
   effect: 'slide',
   autosize: true,
-  hammerJS: false
+  hammerJS: false,
+  onBuild: null
 });
 
 // vanilla JavaScript with default settings
@@ -72,7 +73,8 @@ var simpleSlideShow = new SimpleSlideShow(
     indexUnderline: true,
     effect: 'slide',
     autosize: true,
-    hammerJS: false
+    hammerJS: false,
+    onBuild: null
   }
 );
 ```
@@ -88,3 +90,4 @@ indexUnderline | boolean | true | Underline current index.
 effect | string | 'slide' | Transition effect: `'slide'` or `'fade'`.
 autosize | boolean | true | Size slide-show to height of tallest slide content. Set `false` if using CSS to set height of slide-show.
 hammerJS | boolean | false | Enable touch functionality if [Hammer.js](https://github.com/hammerjs/hammer.js) is included on your page.
+onBuild | function | null | Callback function to execute after slide-show build.

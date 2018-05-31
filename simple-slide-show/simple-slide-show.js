@@ -21,7 +21,8 @@ SimpleSlideShow.prototype.settings = {
   indexUnderline: true,
   effect: 'slide',
   autosize: true,
-  hammerJS: false
+  hammerJS: false,
+  onBuild: null
 };
 
 SimpleSlideShow.prototype.set = function( options ){
@@ -527,6 +528,9 @@ SimpleSlideShow.prototype.init = function(){
     if( isAndroid )
       util.addClass( document.querySelector( 'body' ), 'ua-android' );
     */
+
+    if( typeof settings.onBuild === 'function' )
+      settings.onBuild();
   }
 }
 
