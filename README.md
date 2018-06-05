@@ -2,7 +2,7 @@
 
 A simple responsive slide-show.
 
-Support: Chrome, Firefox, Safari, IE8+. Browsers that do not support CSS3 drop transition effects but retain basic slider functionality.
+Support: Chrome, Firefox, Safari, IE9+. Browsers that do not support CSS3 drop transition effects but retain basic slider functionality.
 
 ## Setup
 

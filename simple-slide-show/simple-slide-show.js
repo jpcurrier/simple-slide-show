@@ -49,7 +49,7 @@ SimpleSlideShow.prototype.util = {
           return true
       }
 
-      const classnames = classname.split( ' ' );
+      var classnames = classname.split( ' ' );
       for( var i = 0; i < classnames.length; i++ ){
         if( check( classnames[ i ] ) )
           continue;
@@ -77,7 +77,7 @@ SimpleSlideShow.prototype.util = {
         }
       }
 
-      const classnames = classname.split( ' ' );
+      var classnames = classname.split( ' ' );
       for( var i = 0; i < classnames.length; i++ ){
         add( classnames[ i ] );
       }
@@ -98,7 +98,7 @@ SimpleSlideShow.prototype.util = {
         }
       }
 
-      const classnames = classname.split( ' ' );
+      var classnames = classname.split( ' ' );
       for( var i = 0; i < classnames.length; i++ ){
         remove( classnames[ i ] );
       }
@@ -267,19 +267,14 @@ SimpleSlideShow.prototype.init = function(){
     }
     function updateIndex( current ){
       for( var i = 0; i < index.children.length; i++ ){
-        if( i === current )
+        if( i === Number( current ) )
           util.addClass( index.children[ i ], 'on' );
         else
           util.removeClass( index.children[ i ], 'on' );
       }
 
-      if( settings.indexUnderline ){
-        var lastJump = index.children[ slide.length - 1 ],
-          pos =
-            current * ( parseInt( util.getStyle( lastJump, 'width' ) ) + parseInt( util.getStyle( lastJump, 'margin-left' ) ) ) +
-              parseInt( util.getStyle( index, 'padding-left' ) );
-        indexUnderline.style.left = pos + 'px';
-      }
+      if( settings.indexUnderline )
+        indexUnderline.style.left = index.children[ current ].offsetLeft + 'px';
     }
     function slideForward( current ){
       if( settings.effect == 'fade' )
@@ -373,7 +368,6 @@ SimpleSlideShow.prototype.init = function(){
               slideIn( toSlide, 'right' );
               slideOut( current, 'left' );
             }
-            updateIndex( toSlide );
           }
           else{
             if( settings.effect == 'fade' )
@@ -382,7 +376,6 @@ SimpleSlideShow.prototype.init = function(){
               slideIn( toSlide, 'left' );
               slideOut( current, 'right' );
             }
-            updateIndex( toSlide );
           }
           updateIndex( toSlide );
         }
