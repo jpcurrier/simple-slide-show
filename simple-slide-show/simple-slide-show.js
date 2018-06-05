@@ -136,8 +136,17 @@ SimpleSlideShow.prototype.init = function(){
       return;
 
     var animating = false,
-      slideTransitionDuration = util.getStyle( slide[ 0 ], 'transition-duration' ), // !this grabs opacity transition time vs. transform transition time
+      slideTransitionDuration = util.getStyle( slide[ 0 ], 'transition-duration' ), // fade
       slideTransition = 0;
+    if( settings.effect === 'slide' ){
+      var slideStyle = document.createElement( 'div' );
+      slideStyle.style.display = 'none';
+      slideStyle.className = 'from-left';
+      slideStyle.appendChild( document.createElement( 'figure' ) );
+      document.body.appendChild( slideStyle );
+      slideTransitionDuration = util.getStyle( slideStyle.firstChild, 'animation-duration' ); // slide
+      document.body.removeChild( slideStyle );
+    }
     if( slideTransitionDuration )
       slideTransition =
         slideTransitionDuration.indexOf( 'ms' ) > -1 ?
@@ -433,7 +442,17 @@ SimpleSlideShow.prototype.init = function(){
       if( !util.hasClass( container, 'simple-slide-show-ready' ) ){
         util.addClass( container, 'simple-slide-show-ready' );
 
-        slideTransitionDuration = util.getStyle( slide[ 0 ], 'transition-duration' ); // !this grabs opacity transition time vs. transform transition time
+        slideTransitionDuration = util.getStyle( slide[ 0 ], 'transition-duration' ); // fade
+        if( settings.effect === 'slide' ){
+          var slideStyle = document.createElement( 'div' );
+          slideStyle.style.display = 'none';
+          slideStyle.className = 'from-left';
+          slideStyle.appendChild( document.createElement( 'figure' ) );
+          document.body.appendChild( slideStyle );
+          slideTransitionDuration = util.getStyle( slideStyle.firstChild, 'animation-duration' ); // slide
+          document.body.removeChild( slideStyle );
+        }
+
         if( slideTransitionDuration )
           slideTransition =
             slideTransitionDuration.indexOf( 'ms' ) > -1 ?
