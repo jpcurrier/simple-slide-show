@@ -229,45 +229,28 @@ SimpleSlideShow.prototype.init = function(){
       util.removeClass( container, 'fade' );
 
     // "on" slide
+    util.addClass( slide[ slideOn ], 'on' );
     for( var i = 0; i < slide.length; i++ ){
-      // already exists
-      if( util.hasClass( slide[ i ], 'on' ) ){
-        setupSlide();
-        break;
+      if( settings.effect == 'slide' ){
+        if( !util.hasClass( slide[ i ], 'on' ) )
+          util.addClass( slide[ i ], 'to-left-init' );
       }
-      else if( i === slide.length - 1 ){
-        util.addClass( slide[ 0 ], 'on' );
-        setupSlide();
-      }
-    }
-    function setupSlide(){
-      for( var j = 0; j < slide.length; j++ ){
-        if( settings.effect == 'slide' ){
-          if( !util.hasClass( slide[ j ], 'on' ) )
-            util.addClass( slide[ j ], 'to-left-init' );
-        }
-        else
-          util.removeClass( slide[ j ], 'to-left-init to-left to-right from-left from-right' );
-      }
+      else
+        util.removeClass( slide[ i ], 'to-left-init to-left to-right from-left from-right' );
     }
 
     // updates
     function slideIn( i, direction ){
-      util.removeClass( slide[ i ], 'to-left-init' );
-      util.removeClass( slide[ i ], 'to-left' );
-      util.removeClass( slide[ i ], 'to-right' );
+      util.removeClass( slide[ i ], 'to-left-init to-left to-right' );
       util.addClass( slide[ i ], 'on from-' + direction );
     }
     function slideOut( i, direction ){
-      util.removeClass( slide[ i ], 'on' );
-      util.removeClass( slide[ i ], 'from-left' );
-      util.removeClass( slide[ i ], 'from-right' );
+      util.removeClass( slide[ i ], 'on from-left from-right' );
       util.addClass( slide[ i ], 'to-' + direction );
     }
     function fade( fadeIn, fadeOut ){
-      for( var i = 0; i < slide.length; i++ ){
+      for( var i = 0; i < slide.length; i++ )
         util.removeClass( slide[ i ], 'off' );
-      }
       slide[ fadeOut ].className = 'off';
       util.addClass( slide[ fadeIn ], 'on' );
       setTimeout( function(){
@@ -407,7 +390,7 @@ SimpleSlideShow.prototype.init = function(){
       }
 
     // autoplay
-    var autoPlay = container.getAttribute( 'data-play' );
+    var autoPlay = container.getAttribute( 'data-s-play' );
     function autoPlayFn(){
       animating = true;
 
@@ -427,12 +410,12 @@ SimpleSlideShow.prototype.init = function(){
     }
     function startAutoPlay(){
       autoPlay = setInterval( autoPlayFn, speed + slideTransition );
-      container.setAttribute( 'data-play', autoPlay );
+      container.setAttribute( 'data-s-play', autoPlay );
     }
     function stopAutoPlay(){
-      var autoPlay = container.getAttribute( 'data-play' ); // otherwise var gets stuck with value at first call?
+      var autoPlay = container.getAttribute( 'data-s-play' ); // otherwise var gets stuck with value at first call?
       clearInterval( autoPlay );
-      container.removeAttribute( 'data-play' );
+      container.removeAttribute( 'data-s-play' );
     }
     if( util.hasClass( container, 'simple-slide-show-ready' ) && settings.autoplay && !autoPlay )
       startAutoPlay();
@@ -482,27 +465,30 @@ SimpleSlideShow.prototype.init = function(){
       }
       container.style.height = tallest + padding + 'px';
     }
-    var autosizeListener;
+    var delay,
+      autosizeListener = function(){
+        clearTimeout( delay );
+        delay = setTimeout( function(){
+          if( container.getAttribute( 'data-s-size' ) === 'true' )
+            slideHeights();
+        }, 100 );
+      };
     if( settings.autosize ){
       slideHeights();
-
-      if( autosizeListener === undefined ){
-        var delay;
-        autosizeListener = function(){
-          clearTimeout( delay );
-          delay = setTimeout( function(){
-            slideHeights();
-          }, 100 );
-        };
+      if( !container.getAttribute( 'data-s-size' ) ) // only add listener once
         addEventListener( 'resize', autosizeListener );
-      }
+      container.setAttribute( 'data-s-size', 'true' );
+    }
+    else if( container.getAttribute( 'data-s-size' ) === 'true' ){ // disable
+      container.style.height = '';
+      container.setAttribute( 'data-s-size', 'false' );
     }
 
     // touch
-    if( settings.hammerJS && typeof Hammer === 'function' && !container.getAttribute( 'data-sss-touch' ) ){
+    if( settings.hammerJS && typeof Hammer === 'function' && !container.getAttribute( 'data-s-touch' ) ){
       var touch = new Hammer( container );
       touch.on( 'panright panleft', touchNav );
-      container.setAttribute( 'data-sss-touch', 'true' );
+      container.setAttribute( 'data-s-touch', 'true' );
     }
     function touchNav( e ){
       stopAutoPlay();
