@@ -540,7 +540,7 @@ function jQueryPlugin( namespace, PluginClass ){
     });
   };
 }
-if( window.jQuery )
+if( typeof jQuery !== 'undefined' )
   ( function( $ ){
     jQueryPlugin( 'simpleSlideShow', SimpleSlideShow );
   } )( jQuery );
