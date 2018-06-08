@@ -12,7 +12,7 @@ Include the Simple Slide-Show stylesheet and script.
 <!-- Simple Slide-Show Stylesheet -->
 <link rel="stylesheet" href="simple-slide-show/simple-slide-show.css">
 
-<!-- Simple Slide-Show jQuery Plugin -->
+<!-- Simple Slide-Show Script -->
 <script src="simple-slide-show/simple-slide-show.js"></script>
 ```
 
